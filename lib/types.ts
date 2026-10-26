@@ -822,7 +822,7 @@ export interface ScheduleConfig {
   daysOfWeek?: number[];
   /** Каждые N часов. */
   intervalHours?: number;
-  /** IANA-таймзона (например, Asia/Almaty). */
+  /** IANA-таймзона (например, Europe/Moscow). */
   timezone: string;
 }
 
