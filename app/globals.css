@@ -1,0 +1,365 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Arrow Mobile — палитра в стиле arwm.ru (Arrow Media).
+ *  - светлая тема (по умолчанию): белый фон, текст #1a1a1a, основные кнопки
+ *    тёмно-синие #343447, серые рамки #e2e2e2 1px, скругления 2–4px;
+ *  - тёмная тема (класс .dark на <html>): фон #16161f, поверхности
+ *    #232331 / #2b2b3b, акцентная поверхность #343447, текст белый;
+ *  - фирменные цвета: синий #1F5BFF, коралл #FF6751, сирень #A663B9,
+ *    градиент плиток #E4A5FD → #F59A9A, мягкие пятна сирень→коралл (.app-glow).
+ * Все цвета задаются здесь — одна точка правды. Компоненты берут их через
+ * tailwind-классы (bg-background, text-primary, bg-chart-1, ok/warn/bad …).
+ * Формат большинства токенов — HSL-каналы без hsl(), чтобы работали
+ * модификаторы прозрачности tailwind (bg-primary/15).
+ */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    /* #343447 — тёмно-синий arwm */
+    --primary: 240 15% 24%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 18% 97%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 240 18% 97%;
+    --muted-foreground: 240 6% 42%;
+    /* hover-поверхность */
+    --accent: 240 17% 94%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 7 78% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 67% 33%;
+    --success-foreground: 0 0% 100%;
+    --warning: 34 92% 40%;
+    --warning-foreground: 0 0% 100%;
+    /* #e2e2e2 */
+    --border: 0 0% 89%;
+    --input: 0 0% 89%;
+    /* фокус — синий #1F5BFF */
+    --ring: 224 100% 56%;
+    --radius: 4px;
+
+    /* Фирменные акценты (синий #1F5BFF) — для brand-* классов */
+    --brand-400: 225 100% 66%;
+    --brand-500: 224 100% 56%;
+    --brand-600: 224 90% 48%;
+
+    /* Градиент плиток-акцентов: сирень #E4A5FD → коралл #F59A9A */
+    --grad-from: 283 96% 82%;
+    --grad-to: 0 82% 78%;
+    /* Текст на градиентной плитке */
+    --grad-foreground: 0 0% 10%;
+    /* Затемнение под модалками (тёмно-синий #16161f) */
+    --overlay: 240 17% 10%;
+
+    /* Светофор выполнения плана — те же цвета, что success/warning/destructive */
+    --ok: var(--success);
+    --warn: var(--warning);
+    --bad: var(--destructive);
+
+    /* Палитра графиков (сирень, коралл, синий, тёмно-синий …) */
+    --chart-1: 224 100% 56%; /* синий #1F5BFF */
+    --chart-2: 8 100% 66%; /* коралл #FF6751 */
+    --chart-3: 287 38% 56%; /* сирень #A663B9 */
+    --chart-4: 240 15% 24%; /* тёмно-синий #343447 */
+    --chart-5: 0 82% 72%; /* розовый #F59A9A, чуть плотнее для белого фона */
+    --chart-6: 283 80% 72%; /* светлая сирень #E4A5FD, плотнее */
+    --chart-7: 227 100% 75%; /* светло-синий */
+    --chart-8: 240 8% 62%; /* нейтральный серый (длинные серии) */
+
+    /* Дополнительные тонкие рамки / бледный текст / ховер акцента */
+    --border-2: #d4d4dc;
+    --border-3: #b2b2b2;
+    --text-faint: #8a8a96;
+    --accent-bright: #1f5bff;
+    --accent-deep: #1646cc;
+    --radius-sm: 2px;
+    --radius-lg: 4px;
+    --gap: 20px;
+    --shadow-card: 0 1px 2px rgba(26, 26, 26, 0.04),
+      0 12px 32px -20px rgba(52, 52, 71, 0.25);
+
+    /* Свечения фона: сирень и коралл, прозрачность под тему */
+    --glow-lilac: rgba(228, 165, 253, 0.55);
+    --glow-coral: rgba(255, 103, 81, 0.22);
+    --glow-violet: rgba(166, 99, 185, 0.25);
+    --glow-opacity: 0.7;
+  }
+
+  .dark {
+    /* #16161f */
+    --background: 240 17% 10%;
+    --foreground: 0 0% 100%;
+    /* #232331 */
+    --card: 240 17% 16%;
+    --card-foreground: 0 0% 100%;
+    /* #2b2b3b — поднятые поверхности (поповеры, диалоги) */
+    --popover: 240 16% 20%;
+    --popover-foreground: 0 0% 100%;
+    /* В тёмной теме основная кнопка инвертирована: белая с тёмным текстом
+       (#343447 на #232331 не читается как основное действие). */
+    --primary: 0 0% 100%;
+    --primary-foreground: 240 15% 24%;
+    /* #1d1d28 */
+    --secondary: 240 16% 14%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 16% 20%;
+    --muted-foreground: 240 12% 72%;
+    /* #343447 — акцентная поверхность */
+    --accent: 240 15% 24%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 8 100% 66%;
+    --destructive-foreground: 240 17% 10%;
+    --success: 152 55% 52%;
+    --success-foreground: 240 17% 10%;
+    --warning: 38 95% 60%;
+    --warning-foreground: 240 17% 10%;
+    --border: 240 14% 25%;
+    --input: 240 14% 25%;
+    --ring: 225 100% 68%;
+
+    --brand-400: 227 100% 82%;
+    --brand-500: 225 100% 72%;
+    --brand-600: 224 100% 62%;
+
+    --grad-from: 283 96% 82%;
+    --grad-to: 0 82% 78%;
+    --grad-foreground: 0 0% 10%;
+
+
+    --chart-1: 225 100% 68%; /* синий, светлее для тёмного фона */
+    --chart-2: 8 100% 66%; /* коралл #FF6751 */
+    --chart-3: 287 57% 67%; /* сирень, светлее */
+    --chart-4: 283 96% 82%; /* светлая сирень #E4A5FD (вместо тёмно-синего) */
+    --chart-5: 0 82% 78%; /* розовый #F59A9A */
+    --chart-6: 227 100% 82%; /* светло-синий */
+    --chart-7: 15 83% 66%; /* персиковый */
+    --chart-8: 240 10% 60%; /* нейтральный */
+
+    --border-2: #3a3a50;
+    --border-3: #4a4a63;
+    --text-faint: #8e8ea3;
+    --accent-bright: #7e9bff;
+    --accent-deep: #5b85ff;
+    --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset,
+      0 12px 32px -16px rgba(0, 0, 0, 0.7);
+
+    --glow-lilac: rgba(228, 165, 253, 0.32);
+    --glow-coral: rgba(255, 103, 81, 0.24);
+    --glow-violet: rgba(166, 99, 185, 0.4);
+    --glow-opacity: 0.55;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  /* Заголовки — тот же Onest, жирнее и плотнее (как на arwm.ru) */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: hsl(var(--grad-from) / 0.6);
+    color: hsl(var(--grad-foreground));
+  }
+
+  /* Аккуратный скроллбар */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card border border-border;
+  }
+
+  .gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--grad-from) / 0.9),
+      hsl(var(--grad-from) / 0) 40%,
+      hsl(var(--grad-to) / 0.8)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--muted-foreground)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Фирменный градиентный текст: сирень → коралл */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #a663b9 0%, #ff6751 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Плитка-акцент arwm: градиент сирень #E4A5FD → коралл #F59A9A,
+     тёмный текст в обеих темах. */
+  .tile-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--grad-from)) 0%,
+      hsl(var(--grad-to)) 100%
+    );
+    color: hsl(var(--grad-foreground));
+  }
+
+  .shiny-border {
+    position: relative;
+    background: linear-gradient(hsl(var(--card)), hsl(var(--card)))
+        padding-box,
+      linear-gradient(
+          135deg,
+          hsl(var(--grad-from) / 0.7),
+          hsl(var(--border)) 40%,
+          hsl(var(--grad-to) / 0.6)
+        )
+        border-box;
+    border: 1px solid transparent;
+  }
+
+  .hero-grid {
+    background-image: var(--tw-bg-grid, none);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at top, black 0%, transparent 70%);
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted) / 0.5) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.5s linear infinite;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Надзаголовок — mono, uppercase, широкий трекинг */
+  .eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Карточка с фирменной тенью */
+  .surface {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
+  .surface-2 {
+    background: hsl(var(--popover));
+  }
+
+  /* Фирменное свечение (для акцентных карточек/кнопок при желании) */
+  .glow-accent {
+    box-shadow:
+      0 0 0 1px hsl(var(--grad-from) / 0.6),
+      0 8px 40px -8px hsl(var(--grad-to) / 0.55);
+  }
+
+  /* Мягкие размытые пятна сирень → коралл на фоне приложения (как на
+     arwm.ru). Декоративные, не перехватывают клики, лежат ПОД контентом. */
+  .app-glow {
+    position: fixed;
+    inset: -10% -10% auto -10%;
+    height: 70vh;
+    max-height: 680px;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(80px);
+    opacity: var(--glow-opacity);
+    background:
+      radial-gradient(
+        38% 55% at 14% 22%,
+        var(--glow-lilac),
+        transparent 70%
+      ),
+      radial-gradient(
+        34% 50% at 82% 12%,
+        var(--glow-coral),
+        transparent 70%
+      ),
+      radial-gradient(
+        40% 55% at 58% 48%,
+        var(--glow-violet),
+        transparent 72%
+      );
+  }
+  @media (max-width: 860px) {
+    .app-glow {
+      opacity: calc(var(--glow-opacity) * 0.7);
+    }
+  }
+}

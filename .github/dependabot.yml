@@ -1,0 +1,45 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Cooldown: не предлагать только что вышедшие версии (защита от
+    # компрометации свежих релизов пакетов — supply-chain). Ждём ≥3 дня.
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 5
+    groups:
+      # Группируем некритичные обновления, чтобы не плодить PR.
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    labels:
+      - "dependencies"
+    # Не предлагать ломающие мажорные апгрейды фреймворка/UI — они требуют
+    # ручной миграции (напр. Next 16 меняет сигнатуру route handlers: params →
+    # Promise; React 19 — peer-конфликты). Patch/minor по ним по-прежнему идут.
+    ignore:
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "eslint-config-next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-markdown"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "lucide-react"
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 3

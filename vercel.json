@@ -1,0 +1,20 @@
+{
+  "regions": [
+    "dub1"
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/alert-rules",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/ping",
+      "schedule": "0 3 * * *"
+    }
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  }
+}
