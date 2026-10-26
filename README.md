@@ -179,7 +179,7 @@ components/     UI-компоненты по разделам
 lib/            бизнес-логика: query engine, план/факт, AI, шифрование, Supabase-клиенты
 stores/         Zustand-сторы (данные читаются/пишутся в Supabase через lib/supabase-db.ts)
 supabase/       SQL: setup.sql (полная установка), schema*.sql и migrations/ (история)
-docs/           архитектурные решения (ADR) и описание раздела уведомлений
+docs/           описание раздела уведомлений
 scripts/        тесты и генератор демо-CSV
 public/demo/    синтетический демо-датасет
 ```

@@ -81,10 +81,10 @@ ALTER TABLE public.alert_rules DROP COLUMN IF EXISTS schedule;
 ALTER TABLE public.alert_rules ADD COLUMN IF NOT EXISTS ai_generation_meta jsonb;
 ALTER TABLE public.alert_rules ADD COLUMN IF NOT EXISTS schedule_type text NOT NULL DEFAULT 'daily'::text;
 ALTER TABLE public.alert_rules ADD COLUMN IF NOT EXISTS schedule_config jsonb NOT NULL DEFAULT '{}'::jsonb;
--- Дефолт часового пояса взят из рабочей базы как есть. Приложение всегда пишет
+-- Дефолт часового пояса совпадает с кодом. Приложение всегда пишет
 -- timezone явно (FIXED_TIMEZONE в lib/alert-rules-helpers.ts — сейчас
 -- 'Europe/Moscow'), так что дефолт срабатывает только при вставке в обход кода.
-ALTER TABLE public.alert_rules ADD COLUMN IF NOT EXISTS timezone text NOT NULL DEFAULT 'Asia/Almaty'::text;
+ALTER TABLE public.alert_rules ADD COLUMN IF NOT EXISTS timezone text NOT NULL DEFAULT 'Europe/Moscow'::text;
 ALTER TABLE public.alert_rules ADD COLUMN IF NOT EXISTS updated_at timestamptz NOT NULL DEFAULT now();
 ALTER TABLE public.alert_rules
   ALTER COLUMN ai_meta SET DEFAULT '{}'::jsonb,
